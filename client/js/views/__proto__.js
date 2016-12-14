@@ -4,6 +4,8 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
 
     OptimizedResize: require('./lib/OptimizedResize'),
     
+    Spinner: require('./lib/Spin'),
+    
     Xhr: require('../Xhr'),
 
     bindEvent( key, event ) {
@@ -35,13 +37,11 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
         }
     },
 
-    delete( duration ) {
-        return new Promise( resolve => {
-            this.els.container.classList.add('hide')
-            this.els.container.addEventListener( 'transitionend', e => {
-                this.els.container.parentNode.removeChild( this.els.container );
-                resolve( this.emit('removed') )
-            }, true )
+    delete() {
+        return this.hide()
+        .then( () => {
+            this.els.container.parentNode.removeChild( this.els.container );
+            resolve( this.emit('removed') )
         } )
     },
 
@@ -70,6 +70,7 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
         return new Promise( resolve => {
             this.els.container.classList.add('hide')
             this.els.container.addEventListener( 'transitionend', e => {
+                this.els.container.classList.add('hidden')
                 resolve( this.emit('hidden') )
             }, true )
         } )
@@ -128,7 +129,7 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
 
     show( duration ) {
         return new Promise( resolve => {
-            this.els.container.classList.remove('hide')
+            this.els.container.classList.remove( 'hide', 'hidden' )
             this.els.container.addEventListener( 'transitionend', e => {
                 if( this.size ) this.size()
                 resolve( this.emit('shown') )

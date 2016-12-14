@@ -2,6 +2,8 @@ module.exports = Object.create( Object.assign( { }, require('../lib/MyObject'), 
 
     Client: require('mongodb').MongoClient,
 
+    ObjectId: require('mongodb').ObjectID,
+
     _connect() { return this.Client.connect(process.env.MONGODB) },
 
     forEach( cursorFn, callbackFn, thisVar ) {

@@ -20,7 +20,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
             this.views.UserManage 
                 ? this.views.UserManage.onNavigation( type, user )
                 : this.views.UserManage =
-                    this.factory.create( 'UserManage', { type: { value: type }, model: { value: { data: user || {} } }, insertion: { value: { el: this.els.container, method: 'insertBefore' } } } )
+                    this.factory.create( 'UserManage', { type: { value: type, writable: true }, model: { value: { data: user || {} } }, insertion: { value: { el: this.els.container, method: 'insertBefore' } } } )
                     .on( 'added', user => { this.createUserView(user); this.show() } )
                     .on( 'edited', user => { this.views[ user._id ].update( user ); this.show() } )
                     .on( 'cancelled', () => this.show() )

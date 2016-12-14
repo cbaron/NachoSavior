@@ -4,13 +4,21 @@ module.exports = Object.assign( { }, require('./lib/MyObject'), {
 
     Context: require('./lib/Context'),
 
+    Fs: require('fs'),
+
     Jws: require('jws'),
 
     Mongo: require('./dal/Mongo'),
 
+    Uuid: require('uuid'),
+
     Validate: require('./lib/Validate'),
 
     apply( method ) {
+
+        if( method === "POST" && this.path[0] === "file" ) return this.handleFileUpload()
+        if( method === "PATCH" && this.path[0] === "file" ) return this.handleFileUpload(this.path[1])
+
         return this.Validate.apply( this )
            .then( () => this.Context.apply( this ) )
            .then( () => this[method]() )
@@ -57,6 +65,22 @@ module.exports = Object.assign( { }, require('./lib/MyObject'), {
         } )
     },
 
+    handleFileUpload(path) {
+        this.request.setEncoding('binary')
+
+        return this.Validate.GET(this)
+        .then( () => 
+            new Promise( ( resolve, reject ) => {
+                const relativePath = path || `/static/img/${this.Uuid.v4()}`,
+                      fileStream = this.Fs.createWriteStream( `${__dirname}${relativePath}`, { defaultEncoding: 'binary' } )
+
+                this.request.on( 'error', reject )
+                this.request.on( 'end', () => resolve( this.respond( { body: { path: `${relativePath}` } } ) ) )
+                this.request.pipe( fileStream )
+            } )
+        )
+    },
+
     handleMe() {
         return this.respond( { body: this.user } )
     },
@@ -89,10 +113,22 @@ module.exports = Object.assign( { }, require('./lib/MyObject'), {
             )
         )
     },
+    
+    PATCH() {
+        return this.Mongo.getDb( db => db.collection(this.path[0]).findOneAndUpdate( { _id: this.Mongo.ObjectId( this.path[1] ) }, { $set: this.body }, { returnOriginal: false } ), this )
+        .then( result => {
+            if( result.value && result.value.password ) delete result.value.password
+            return this.respond( { body: result.value } )
+        } )
+    },
 
     POST() {
         if( this.path[0] === 'auth' ) return this.handleAuth()
-        return this.Mongo.getDb( db => db.collection('user').findOne( { username: this.body.username } ), this ) 
+        return this.Mongo.getDb( db => db.collection(this.path[0]).insertOne( this.body ), this )
+        .then( result => {
+            delete this.body.password
+            return this.respond( { body: Object.assign( this.body, { _id: result.insertedId } ) } )
+        } )
     },
 
     end( data ) {

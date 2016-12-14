@@ -4,13 +4,16 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         this.path = path
 
         return ( path.length === 1 && this.els.container.classList.contains('hide') )
-            ? this.show().catch( this.Error )
+            ? Promise.all( Object.keys( this.subViews ).map( view => this.subViews[ view ].hide() ) ).then( () => this.show() ).catch( this.Error )
             : ( this.path.length > 1 )
                 ? this.hide().then( () => this.renderSubView() )
                 : true
     },
 
     postRender() {
+        this.views = { }
+        this.subViews = { }
+
         this.options = Object.create( this.Model, { resource: { value: 'admin' } } )
 
         this.options.get( { method: 'options' } )
@@ -35,9 +38,9 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     renderSubView() {
         const subViewName = `${this.capitalizeFirstLetter(this.path[1])}Resources`
 
-        return this.views[ subViewName ]
-            ? this.views[ subViewName ].handleNavigation()
-            : this.views[ subViewName ] = this.factory.create( subViewName, { insertion: { value: { el: this.els.container, method: 'insertBefore' } } } )
+        return this.subViews[ subViewName ]
+            ? this.subViews[ subViewName ].onNavigation()
+            : this.subViews[ subViewName ] = this.factory.create( subViewName, { insertion: { value: { el: this.els.container, method: 'insertBefore' } } } )
     },
 
     requiresLogin: true

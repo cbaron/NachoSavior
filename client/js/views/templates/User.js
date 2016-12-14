@@ -1,6 +1,6 @@
 module.exports = p =>
 `<div>
-    <span>${p.username}</span>
-    <button class="edit" data-js="edit"></button>
+    <span data-js="username">${p.username}</span>
+    ${p.user._id === p._id ? '<button class="edit" data-js="edit"></button>' : ''}
 </div>
 `

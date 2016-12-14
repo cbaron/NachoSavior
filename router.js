@@ -138,4 +138,4 @@ module.exports = Object.create( Object.assign( {}, require('./lib/MyObject'), {
         } ) )
     }
 
-} ), { customRoutes: { value: [ 'admin', 'auth', 'me' ] } } ).constructor()
+} ), { customRoutes: { value: [ 'admin', 'auth', 'me', 'file' ] } } ).constructor()
