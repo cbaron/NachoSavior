@@ -1,0 +1,46 @@
+.ComicResources
+    margin-left: 12%
+    position: relative
+    text-align: center
+    width: 75%
+    
+    button.add,
+    button.delete,
+    button.edit
+        cursor: pointer
+        float: right
+        position: absolute
+        right: 0px
+        
+    > div:first-child
+        margin-bottom: 2rem
+
+        div
+            display: inline-block
+            line-height: 2rem
+
+    .Comic
+        border-bottom: 1px solid lightgrey
+        border-left: 1px solid lightgrey
+        border-right: 1px solid lightgrey
+        padding: 1rem
+
+        &:first-child
+            border-top: 1px solid lightgrey
+    
+        .header
+            position: relative
+
+            .title
+                display: inline-block
+                height: 2rem
+                max-width: 60%
+        
+        .confirm
+            height: 2rem
+
+        button
+            &:nth-child(2)
+                right: 1rem
+            &:nth-child(3)
+                right: 4rem

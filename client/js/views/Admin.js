@@ -3,7 +3,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     navigate( path ) {
         this.path = path;
 
-        return ( path.length === 1 && this.els.container.classList.includes('hide') )
+        return ( path.length === 1 && this.els.container.classList.contains('hide') )
             ? Promise.all( Object.keys( this.subViews ).map( view => this.subViews[ view ].hide() ) ).then( () => this.show() ).catch( this.Error )
             : ( this.path.length > 1 )
                 ? ( this.els.container.classList.contains('hide') )
@@ -28,7 +28,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
             this.options.data.forEach( collection =>
                 this.views[ collection ] = this.factory.create(
                     'AdminItem',
-                    { insertion: { value: { el: this.els.container } },
+                    { insertion: { value: { el: this.els.list } },
                       model: { value: { data: { collection } } } }
                 )
             )

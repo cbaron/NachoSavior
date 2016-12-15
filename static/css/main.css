@@ -1,3 +1,149 @@
+.Admin {
+  text-align: center;
+  margin-left: 12%;
+  width: 75%;
+}
+.Admin > div:first-child {
+  margin-bottom: 2rem;
+}
+.Admin .AdminItem {
+  border-bottom: 1px solid #d3d3d3;
+  border-left: 1px solid #d3d3d3;
+  border-right: 1px solid #d3d3d3;
+  cursor: pointer;
+  padding: 1rem;
+}
+.Admin .AdminItem:first-child {
+  border-top: 1px solid #d3d3d3;
+}
+.Admin .AdminItem:hover {
+  background-color: #d3d3d3;
+}
+.Comic {
+  margin: 2rem 0rem;
+}
+.Comic div:first-child {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+.Comic img {
+  display: block;
+  max-width: 100%;
+  margin: 1rem auto;
+}
+.Comic+.Comic {
+  border-top: 1px solid #d3d3d3;
+}
+.ComicManage {
+  margin-left: 12%;
+  width: 75%;
+}
+.ComicManage > div:first-child {
+  border-bottom: 1px solid #d3d3d3;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.ComicManage label {
+  display: inline-block;
+  width: 15%;
+}
+.ComicManage input {
+  width: 80%;
+}
+.ComicManage .button-row {
+  text-align: center;
+}
+.ComicManage .button-row button {
+  cursor: pointer;
+}
+.ComicResources {
+  margin-left: 12%;
+  position: relative;
+  text-align: center;
+  width: 75%;
+}
+.ComicResources button.add,
+.ComicResources button.delete,
+.ComicResources button.edit {
+  cursor: pointer;
+  float: right;
+  position: absolute;
+  right: 0px;
+}
+.ComicResources > div:first-child {
+  margin-bottom: 2rem;
+}
+.ComicResources > div:first-child div {
+  display: inline-block;
+  line-height: 2rem;
+}
+.ComicResources .Comic {
+  border-bottom: 1px solid #d3d3d3;
+  border-left: 1px solid #d3d3d3;
+  border-right: 1px solid #d3d3d3;
+  padding: 1rem;
+}
+.ComicResources .Comic:first-child {
+  border-top: 1px solid #d3d3d3;
+}
+.ComicResources .Comic .header {
+  position: relative;
+}
+.ComicResources .Comic .header .title {
+  display: inline-block;
+  height: 2rem;
+  max-width: 60%;
+}
+.ComicResources .Comic .confirm {
+  height: 2rem;
+}
+.ComicResources .Comic button:nth-child(2) {
+  right: 1rem;
+}
+.ComicResources .Comic button:nth-child(3) {
+  right: 4rem;
+}
+.Home {
+  width: 75%;
+  margin-left: 12%;
+}
+.UserResources {
+  margin-left: 12%;
+  position: relative;
+  text-align: center;
+  width: 75%;
+}
+.UserResources button {
+  cursor: pointer;
+  float: right;
+  position: absolute;
+  right: 0px;
+}
+.UserResources > div:first-child {
+  margin-bottom: 2rem;
+}
+.UserResources > div:first-child div {
+  display: inline-block;
+  line-height: 2rem;
+}
+.UserResources .User {
+  border-bottom: 1px solid #d3d3d3;
+  border-left: 1px solid #d3d3d3;
+  border-right: 1px solid #d3d3d3;
+  padding: 1rem;
+  position: relative;
+}
+.UserResources .User div {
+  display: inline-block;
+  line-height: 2rem;
+}
+.UserResources .User button {
+  right: 15px;
+}
+.UserResources .User:first-child {
+  border-top: 1px solid #d3d3d3;
+}
 html {
   font-size: 100%;
   height: 100%;
@@ -13,9 +159,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  text-align: left;
-  color: #666;
-  padding-top: 6rem;
+  padding-top: 3rem;
 }
 h1,
 h2,
@@ -39,6 +183,10 @@ li {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  -webkit-margin-start: 0rem;
+  -webkit-margin-end: 0rem;
+  -webkit-margin-before: 0rem;
+  -webkit-margin-after: 0rem;
 }
 input,
 button,
@@ -60,13 +208,28 @@ button:focus {
   transition: all 1s ease-in-out;
 }
 .hidden {
-  display: none;
+  display: none !important;
+}
+button {
+  background-color: #fff;
+  border: 1px solid;
+  border-color: transparent;
+  border-radius: 0.3rem;
+  box-shadow: 0 2px 3px #999;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0rem 1rem;
+}
+button:hover {
+  color: #d3d3d3;
 }
 button.add {
   background-image: url("/static/img/plus.svg");
   background-repeat: no-repeat;
   background-color: transparent;
   border: none;
+  box-shadow: none;
   height: 2rem;
   width: 2rem;
   padding: 0px;
@@ -76,6 +239,17 @@ button.edit {
   background-repeat: no-repeat;
   background-color: transparent;
   border: none;
+  box-shadow: none;
+  height: 2rem;
+  width: 2rem;
+  padding: 0px;
+}
+button.delete {
+  background-image: url("/static/img/ex.svg");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
   height: 2rem;
   width: 2rem;
   padding: 0px;
@@ -105,36 +279,67 @@ button.upload input[type=file] {
 button.upload input[type=file]:hover {
   cursor: pointer;
 }
+img.preview {
+  display: inline-block;
+  width: 80%;
+}
+.form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+.form-group input {
+  padding: 0.5rem;
+  width: 80%;
+}
+.form-group input:focus {
+  background-color: #eee;
+}
+.form-group label {
+  display: inline-block;
+  width: 15%;
+}
+.form-group button {
+  cursor: pointer;
+  margin-left: 0px;
+}
+.form-group div {
+  display: inline-block;
+  width: 80%;
+}
 header {
-  background-color: #000;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.35);
-  border-top: 1px solid #000;
-  opacity: 0.75;
-  height: 4rem;
+  background-color: #fff;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.35);
+  height: 3rem;
   left: 0;
   position: fixed;
-  text-align: center;
-  top: 1rem;
+  top: 0;
   width: 100%;
   z-index: 100;
-}
-header svg {
-  height: 2rem;
-  stroke: #fff;
-  margin: 1rem;
-}
-header svg:first-child {
-  float: left;
-}
-header svg:last-child {
-  float: right;
 }
 header ul,
 header li {
   display: inline-block;
 }
+header ul {
+  float: left;
+  width: 33%;
+}
 header li {
   font-size: 1rem;
-  margin: 1rem;
-  text-transform: uppercase;
+  line-height: 3rem;
+  margin: 0rem 1rem;
+}
+header span:nth-child(2) {
+  width: 33%;
+  display: inline-block;
+  text-align: center;
+  line-height: 3rem;
+  font-size: 1.5rem;
+}
+header img {
+  display: inline;
+  height: 2rem;
+  float: right;
+  margin-right: 1rem;
+  margin-top: 0.5rem;
 }

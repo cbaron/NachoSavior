@@ -12,11 +12,11 @@ module.exports = p =>
                 <span>Upload File</span>
                 <input type="file" data-js="image" />
             </button>
-            <img data-js="preview" />
+            <img class="preview" data-js="preview" />
         </div>
     </div>
-    <div>
-        <button data-js="submit" class="btn-ghost" type="button">Submit</button>
-        <button data-js="cancel" class="btn-ghost" type="button">Cancel</button>
+    <div class="button-row">
+        <button data-js="submit" type="button">Submit</button>
+        <button data-js="cancel" type="button">Cancel</button>
     </div>
 </div>`

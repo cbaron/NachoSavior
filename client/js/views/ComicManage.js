@@ -19,7 +19,6 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         this.populate() 
 
         if( this.els.container.classList.contains('hide') ) this.show()
-        
     },
 
     populate() {

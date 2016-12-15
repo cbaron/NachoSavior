@@ -8,7 +8,13 @@ module.exports = Object.assign( {}, require('./__proto__'), {
             }
         )
 
-        this.views[ comic._id ].on( 'edit', () => this.emit( 'navigate', `/admin/comic/edit/${comic._id}`) )
+        this.views[ comic._id ]
+        .on( 'edit', () => this.emit( 'navigate', `/admin/comic/edit/${comic._id}`) )
+        .on( 'delete', () =>
+            this.Xhr( { method: 'delete', resource: `comic/${comic._id}` } )
+            .then( () => this.views[ comic._id ].delete() )
+            .catch( this.Error )
+        )
     },
 
     events: {
@@ -21,8 +27,8 @@ module.exports = Object.assign( {}, require('./__proto__'), {
             : this.views.ComicManage =
                 this.factory.create( 'ComicManage', { type: { value: type, writable: true }, model: { value: { data: comic || {} } }, insertion: { value: { el: this.els.container, method: 'insertBefore' } } } )
                 .on( 'added', comic => { this.createComicView(comic); this.emit( 'navigate', `/admin/comic` ); } )
-                .on( 'edited', comic => { this.views[ comic._id ].update( comic ); this.emit( 'navigate', `/admin/comic` ); } )
                 .on( 'cancelled', () => this.emit( 'navigate', `/admin/comic` ) )
+                .on( 'edited', comic => { this.views[ comic._id ].update( comic ); this.emit( 'navigate', `/admin/comic` ); } )
     },
 
     onAddBtnClick() { this.emit( 'navigate', `/admin/comic/add` ) },
@@ -31,7 +37,9 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         this.path = path;
 
         ( path.length === 2 && this.els.container.classList.contains('hide') ) 
-            ? this.show()
+            ? this.views.ComicManage && !this.views.ComicManage.els.container.classList.contains('hide')
+                ? this.views.ComicManage.hide().then( () => this.show() )
+                : this.show()
             : path.length === 3
                 ? this.hide().then( () => this.manageComic( path[2], { } ) )
                 : path.length === 4

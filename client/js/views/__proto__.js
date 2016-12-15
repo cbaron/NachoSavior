@@ -40,8 +40,8 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
     delete() {
         return this.hide()
         .then( () => {
-            this.els.container.parentNode.removeChild( this.els.container );
-            resolve( this.emit('removed') )
+            this.els.container.parentNode.removeChild( this.els.container )
+            return Promise.resolve( this.emit('removed') )
         } )
     },
 
@@ -53,7 +53,14 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
         return this.model.get()
     },
 
-    getTemplateOptions() { return (this.model) ? this.model.data : {} },
+    getTemplateOptions() {
+        return Object.assign(
+            {},
+            (this.model) ? this.model.data : {} ,
+            { user: (this.user) ? this.user.data : {} },
+            { opts: (this.templateOpts) ? this.templateOpts : {} }
+        )
+    },
 
     handleLogin() {
         this.factory.create( 'login', { insertion: { value: { el: document.querySelector('#content') } } } )
@@ -68,11 +75,9 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
 
     hide() {
         return new Promise( resolve => {
+            this.onHiddenProxy = e => this.onHidden(resolve)
+            this.els.container.addEventListener( 'transitionend', this.onHiddenProxy, true )
             this.els.container.classList.add('hide')
-            this.els.container.addEventListener( 'transitionend', e => {
-                this.els.container.classList.add('hidden')
-                resolve( this.emit('hidden') )
-            }, true )
         } )
     },
 
@@ -84,6 +89,12 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
     },
     
     isHidden() { return this.els.container.css('display') === 'none' },
+
+    onHidden(resolve) {
+        this.els.container.removeEventListener( 'transitionend', this.onHiddenProxy )
+        this.els.container.classList.add('hidden')
+        resolve( this.emit('hidden') )
+    },
 
     onLogin() {
         this.router.header.onUser( this.user )

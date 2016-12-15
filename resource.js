@@ -71,7 +71,7 @@ module.exports = Object.assign( { }, require('./lib/MyObject'), {
         return this.Validate.GET(this)
         .then( () => 
             new Promise( ( resolve, reject ) => {
-                const relativePath = `/static/img/${path || this.Uuid.v4()}`,
+                const relativePath = `/static/img/i/${path || this.Uuid.v4()}`,
                       fileStream = this.Fs.createWriteStream( `${__dirname}${relativePath}`, { defaultEncoding: 'binary' } )
 
                 this.request.on( 'error', reject )
@@ -95,6 +95,11 @@ module.exports = Object.assign( { }, require('./lib/MyObject'), {
             .on( 'done', resolve )
             .on( 'error', reject )
         )
+    },
+
+    DELETE() {
+        return this.Mongo.getDb( db => db.collection(this.path[0]).findOneAndDelete( { _id: this.Mongo.ObjectId( this.path[1] ) } ) )
+        .then( () => this.respond( { body: { } } ) )
     },
 
     GET() {

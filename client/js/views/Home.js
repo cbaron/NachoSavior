@@ -5,7 +5,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         .then( response => 
             response.forEach( comic =>
                 this.views[ comic._id ] =
-                    this.factory.create( 'comic', { insertion: { value: { el: this.els.container } }, model: { value: { data: comic } } } )
+                    this.factory.create( 'comic', { insertion: { value: { el: this.els.container } }, model: { value: { data: comic } }, templateOpts: { value: { readOnly: true } } } )
             )
         )
     },

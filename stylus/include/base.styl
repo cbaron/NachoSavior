@@ -13,9 +13,7 @@ body
     font-size: 1rem
     font-weight: 400
     line-height: 1.5
-    text-align: left
-    color: #666
-    padding-top: $header-padding
+    padding-top: $headerPadding
     
 h1, h2, h3, h4, h5, h6
     margin-top: 0
@@ -33,6 +31,10 @@ ul, li
     list-style-type: none
     padding: 0
     margin: 0
+    -webkit-margin-start: 0rem
+    -webkit-margin-end: 0rem
+    -webkit-margin-before: 0rem
+    -webkit-margin-after: 0rem
     
 input,
 button,
@@ -53,13 +55,28 @@ input, select, button
     transition: all 1s ease-in-out
 
 .hidden
-    display: none
+    display: none !important
+
+button
+    background-color: white
+    border: 1px solid
+    border-color: transparent
+    border-radius: .3rem
+    box-shadow: 0 2px 3px #999
+    cursor: pointer
+    display: inline-block
+    padding: .5rem 1rem
+    margin: 0rem 1rem;
+
+    &:hover
+        color: lightgrey
 
 button.add
     background-image: url(/static/img/plus.svg);
     background-repeat: no-repeat;
     background-color: transparent;
     border: none;
+    box-shadow: none;
     height: 2rem;
     width: 2rem;
     padding: 0px;
@@ -69,6 +86,17 @@ button.edit
     background-repeat: no-repeat;
     background-color: transparent;
     border: none;
+    box-shadow: none;
+    height: 2rem;
+    width: 2rem;
+    padding: 0px;
+
+button.delete
+    background-image: url(/static/img/ex.svg);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
     height: 2rem;
     width: 2rem;
     padding: 0px;
@@ -99,3 +127,7 @@ button.upload
 
         &:hover
             cursor: pointer
+
+img.preview
+    display: inline-block;
+    width: 80%;

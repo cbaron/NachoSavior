@@ -4,5 +4,5 @@ module.exports = p => `<header>
         <li>Store</li>
     </ul>
     <span>Tiny Handed</span>
-    <span>logo</span>
+    <img src="/static/img/tinyHanded.jpg" />
 </header>`
