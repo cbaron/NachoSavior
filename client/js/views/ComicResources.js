@@ -8,7 +8,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
             }
         )
 
-        this.views[ comic._id ].on( 'edit', () => this.manageComic('edit', comic) )
+        this.views[ comic._id ].on( 'edit', () => this.emit( 'navigate', `/admin/comic/edit/${comic._id}`) )
     },
 
     events: {
@@ -16,30 +16,43 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     },
 
     manageComic( type, comic ) {
-        this.hide().then( () => {
-            this.views.ComicManage 
-                ? this.views.ComicManage.onNavigation( type, comic )
-                : this.views.ComicManage =
-                    this.factory.create( 'ComicManage', { type: { value: type, writable: true }, model: { value: { data: comic || {} } }, insertion: { value: { el: this.els.container, method: 'insertBefore' } } } )
-                    .on( 'added', comic => { this.createComicView(comic); this.show() } )
-                    .on( 'edited', comic => { this.views[ comic._id ].update( comic ); this.show() } )
-                    .on( 'cancelled', () => this.show() )
-        } )
+        this.views.ComicManage 
+            ? this.views.ComicManage.onNavigation( type, comic )
+            : this.views.ComicManage =
+                this.factory.create( 'ComicManage', { type: { value: type, writable: true }, model: { value: { data: comic || {} } }, insertion: { value: { el: this.els.container, method: 'insertBefore' } } } )
+                .on( 'added', comic => { this.createComicView(comic); this.emit( 'navigate', `/admin/comic` ); } )
+                .on( 'edited', comic => { this.views[ comic._id ].update( comic ); this.emit( 'navigate', `/admin/comic` ); } )
+                .on( 'cancelled', () => this.emit( 'navigate', `/admin/comic` ) )
     },
 
-    onAddBtnClick() { this.manageComic('add') },
+    onAddBtnClick() { this.emit( 'navigate', `/admin/comic/add` ) },
 
     onNavigation( path ) {
+        this.path = path;
+
         ( path.length === 2 && this.els.container.classList.contains('hide') ) 
             ? this.show()
             : path.length === 3
-                ? this.manageComic( path[2], { } )
+                ? this.hide().then( () => this.manageComic( path[2], { } ) )
                 : path.length === 4
-                     ? this.manageComic( path[2], this.views[ path[3] ].model.data )
+                     ? this.hide().then( () => this.manageComic( path[2], this.views[ path[3] ].model.data ) )
                      : undefined
     },
 
     postRender() {
+
+        if( this.path.length > 2 ) {
+            this.els.container.classList.add( 'hidden', 'hide' )
+            if( this.path[2] === "add" ) { this.manageComic( "add", { } ) }
+            else if( this.path[2] === "edit" && this.path[3] ) {
+                this.Xhr( { method: "get", resource: `comic/${this.path[3]}` } )
+                .then( response => this.manageComic( "edit", response ) )
+                .catch( e => { this.Error(e); this.emit( 'navigate', `/admin/comic` ) } )
+            }
+        } else if( this.path.length === 1 && this.views.ComicManage ) {
+            this.views.ComicManage.hide()
+        }
+
         this.comics = Object.create( this.Model, { resource: { value: 'comic' } } )
 
         this.comics.get()

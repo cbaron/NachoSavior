@@ -17,6 +17,8 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         this.model.data = comic
        
         this.populate() 
+
+        if( this.els.container.classList.contains('hide') ) this.show()
         
     },
 
@@ -74,7 +76,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         let data = { title: this.els.title.value }
 
         return ( ( this.binaryFile )
-            ? this.Xhr( { method: 'PATCH', resource: `file/${this.model.data.image.split('/')[2]}`, data: this.binaryFile, headers: { contentType: 'application/octet-stream' } } )
+            ? this.Xhr( { method: 'PATCH', resource: `file/${this.model.data.image.split('/')[3]}`, data: this.binaryFile, headers: { contentType: 'application/octet-stream' } } )
             : Promise.resolve() )
         .then( () => this.Xhr( { method: 'PATCH', resource: `comic/${this.model.data._id}`, data: JSON.stringify( data ) } ) )
         .then( response => this.hide().then( () => this.emit( 'edited', response ) ) )

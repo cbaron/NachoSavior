@@ -11,6 +11,6 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     update(comic) {
         this.model.data = comic
         this.els.title.textContent = comic.title
-        this.els.image.src = comic.image
+        this.els.image.src = `${comic.image}?${new Date().getTime()}`
     }
 } )

@@ -71,7 +71,7 @@ module.exports = Object.assign( { }, require('./lib/MyObject'), {
         return this.Validate.GET(this)
         .then( () => 
             new Promise( ( resolve, reject ) => {
-                const relativePath = path || `/static/img/${this.Uuid.v4()}`,
+                const relativePath = `/static/img/${path || this.Uuid.v4()}`,
                       fileStream = this.Fs.createWriteStream( `${__dirname}${relativePath}`, { defaultEncoding: 'binary' } )
 
                 this.request.on( 'error', reject )
@@ -99,8 +99,11 @@ module.exports = Object.assign( { }, require('./lib/MyObject'), {
 
     GET() {
         if( this.path[0] === "me" ) return this.handleMe()
-        this.body = [ ]
-        return this.Mongo.forEach( this.find, this.addToBody, this )
+        this.body = [ ];
+        ( ( this.path.length === 2 )
+            ? this.Mongo.getDb( db => db.collection(this.path[0]).findOne( { _id: this.Mongo.ObjectId( this.path[1] ) } ) )
+              .then( item => Promise.resolve( this.body = item ) )
+            : this.Mongo.forEach( this.find, this.addToBody, this ) )
         .then( () => Promise.resolve( this.respond( { body: this.body } ) ) )
     },
 
