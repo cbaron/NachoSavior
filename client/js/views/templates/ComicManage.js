@@ -8,10 +8,10 @@ module.exports = p =>
     <div class="form-group">
        <label class="form-label">image</label>
         <div>
-            <button data-js="upload" class="upload">
+            <div data-js="upload" class="upload">
                 <span>Upload File</span>
                 <input type="file" data-js="image" />
-            </button>
+            </div>
             <img class="preview" data-js="preview" />
         </div>
     </div>

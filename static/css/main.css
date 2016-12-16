@@ -262,6 +262,7 @@ button:focus {
 .hidden {
   display: none !important;
 }
+div.upload,
 button {
   background-color: #fff;
   border: 1px solid;
@@ -273,6 +274,7 @@ button {
   padding: 0.5rem 1rem;
   margin: 0rem 1rem;
 }
+div.upload:hover,
 button:hover {
   color: #d3d3d3;
 }
@@ -306,20 +308,23 @@ button.delete {
   width: 2rem;
   padding: 0px;
 }
-button.upload {
+.upload {
+  font-size: 0.75rem;
+  margin-left: 0px;
   position: relative;
   overflow: hidden;
+  width: initial !important;
 }
-button.upload.has-spinner {
+.upload.has-spinner {
   color: transparent;
 }
-button.upload:hover {
+.upload:hover {
   cursor: pointer;
 }
-button.upload span:hover {
+.upload span:hover {
   cursor: pointer;
 }
-button.upload input[type=file] {
+.upload input[type=file] {
   position: absolute;
   top: 0;
   left: 0;
@@ -328,7 +333,7 @@ button.upload input[type=file] {
   opacity: 0;
   margin: 0;
 }
-button.upload input[type=file]:hover {
+.upload input[type=file]:hover {
   cursor: pointer;
 }
 img.preview {
