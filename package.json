@@ -30,7 +30,7 @@
   },
   "scripts": {
     "build:css": "stylus stylus/main.styl -o static/css/main.css && gzip -c static/css/main.css > static/css/main.css.gz",
-    "build:js": "scripts/writeLoadViews.js && browserify client/js/main.js -o static/js/debug.js -t [ babelify --presets [ es2015 ] ] | uglifyjs > static/js/bundle.js && gzip -c static/js/bundle.js > static/js/bundle.js.gz",
+    "build:js": "scripts/writeLoadViews.js && browserify client/js/main.js -t [ babelify --presets [ es2015 ] ] | uglifyjs > static/js/bundle.js && gzip -c static/js/bundle.js > static/js/bundle.js.gz",
     "build:js-debug": "scripts/writeLoadViews.js && browserify client/js/main.js -o static/js/debug.js -x moment  -d -t [ babelify --presets [ es2015 ] --ignore [ /node_modules/, /vendor/ ] ] && gzip -c static/js/debug.js > static/js/debug.js.gz",
     "build:vendor": "browserify -r moment > static/js/vendor.js && gzip -c static/js/vendor.js > static/js/vendor.js.gz",
     "build:watch": "npm run watch:css & npm run watch:js & npm run livereload",
