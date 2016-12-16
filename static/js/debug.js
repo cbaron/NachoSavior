@@ -203,6 +203,7 @@ module.exports = Object.create({
         var name = path[0] ? path[0].charAt(0).toUpperCase() + path[0].slice(1) : '',
             view = this.Views[name] ? path[0] : 'home';
 
+        console.log(path);
         (view === this.currentView ? Promise.resolve() : Promise.all(Object.keys(this.views).map(function (view) {
             return _this2.views[view].hide();
         }))).then(function () {
