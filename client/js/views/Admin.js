@@ -1,5 +1,10 @@
 module.exports = Object.assign( {}, require('./__proto__'), {
 
+    delete() {
+        return Promise.all( Object.keys( this.subViews ).map( subView => this.subViews[ subView ].delete() ) )
+        .then( () => require('./__proto__').delete.call(this) )
+    },
+
     navigate( path ) {
         this.path = path;
 

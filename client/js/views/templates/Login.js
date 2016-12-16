@@ -9,7 +9,7 @@ module.exports = ( p ) =>
        <label class="form-label" for="password">password</label>
        <input data-js="password" class="password" type="password"></input>
     </div>
-    <div>
+    <div class="button-row">
         <button data-js="submit" class="btn-ghost" type="button">Log In</button>
     </div>
 </div>`

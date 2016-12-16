@@ -108,13 +108,59 @@
   width: 75%;
   margin-left: 12%;
 }
+.Login {
+  margin-left: 12%;
+  width: 75%;
+}
+.Login h1 {
+  border-bottom: 1px solid #d3d3d3;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.Login label {
+  display: inline-block;
+  width: 15%;
+}
+.Login input {
+  width: 80%;
+}
+.Login .button-row {
+  text-align: center;
+}
+.Login .button-row button {
+  cursor: pointer;
+}
+.UserManage {
+  margin-left: 12%;
+  width: 75%;
+}
+.UserManage > div:first-child {
+  border-bottom: 1px solid #d3d3d3;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.UserManage label {
+  display: inline-block;
+  width: 15%;
+}
+.UserManage input {
+  width: 80%;
+}
+.UserManage .button-row {
+  text-align: center;
+}
+.UserManage .button-row button {
+  cursor: pointer;
+}
 .UserResources {
   margin-left: 12%;
   position: relative;
   text-align: center;
   width: 75%;
 }
-.UserResources button {
+.UserResources button.add,
+.UserResources button.delete,
+.UserResources button.edit {
   cursor: pointer;
   float: right;
   position: absolute;
@@ -134,15 +180,21 @@
   padding: 1rem;
   position: relative;
 }
+.UserResources .User:first-child {
+  border-top: 1px solid #d3d3d3;
+}
 .UserResources .User div {
   display: inline-block;
   line-height: 2rem;
 }
-.UserResources .User button {
-  right: 15px;
+.UserResources .User .confirm {
+  height: 2rem;
 }
-.UserResources .User:first-child {
-  border-top: 1px solid #d3d3d3;
+.UserResources .User button:nth-child(2) {
+  right: 1rem;
+}
+.UserResources .User button:nth-child(3) {
+  right: 4rem;
 }
 html {
   font-size: 100%;

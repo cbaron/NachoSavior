@@ -1,11 +1,15 @@
 module.exports = Object.assign( {}, require('./__proto__'), {
 
     events: {
-        signoutBtn: 'click'
+        logo: 'click'
     },
 
     onUser() {
         return this
+    },
+
+    onLogoClick() {
+        this.signout()
     },
 
     requiresLogin: false,
@@ -16,7 +20,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
 
         this.user.data = { }
 
-        this.emit('signout')
+        this.emit( 'signout' )
 
     }
 

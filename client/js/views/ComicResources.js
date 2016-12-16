@@ -17,6 +17,13 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         )
     },
 
+    delete() {
+        return ( ( this.views.ComicManage )
+            ? this.views.ComicManage.delete()
+            : Promise.resolve() )
+        .then( () => require('./__proto__').delete.call(this) )
+    },
+
     events: {
         addBtn: 'click'
     },

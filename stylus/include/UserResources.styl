@@ -3,12 +3,14 @@
     position: relative
     text-align: center
     width: 75%
-    
-    button
+ 
+    button.add,
+    button.delete,
+    button.edit
         cursor: pointer
         float: right
         position: absolute
-        right: 0px
+        right: 0px   
         
     > div:first-child
         margin-bottom: 2rem
@@ -25,13 +27,20 @@
         padding: 1rem
         position: relative
 
+        &:first-child
+            border-top: 1px solid lightgrey
+
         div
             display: inline-block
             line-height: 2rem;
-           
-        button
-            right: 15px
+ 
+        .confirm
+            height: 2rem
 
-        &:first-child
-            border-top: 1px solid lightgrey
+        button
+            &:nth-child(2)
+                right: 1rem
+            &:nth-child(3)
+                right: 4rem          
+
     

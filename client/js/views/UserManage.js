@@ -24,8 +24,8 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     populate() {
         this.els.title.textContent = `${this.capitalizeFirstLetter( this.type )} User`
 
-        this.els.username.value = Object.keys( this.model.data ).length ? this.els.username.value : ''
-        this.els.username.password = ''
+        this.els.username.value = Object.keys( this.model.data ).length ? this.model.data.username : ''
+        this.els.password.value = ''
     },
 
     postRender() {

@@ -49,7 +49,7 @@ module.exports = Object.assign( { }, require('./lib/MyObject'), {
             delete user.password
 
             return this.P( this.BCrypt.compare, [ this.body.password, password ] )
-            .then( checkedOut =>
+            .then( ( [ checkedOut ] ) =>
                     checkedOut
                         ? this.makeToken( user )
                         : this.authError('Invalid Credentials')

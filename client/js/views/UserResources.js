@@ -8,7 +8,20 @@ module.exports = Object.assign( {}, require('./__proto__'), {
             }
         )
 
-        this.views[ user._id ].on( 'edit', () => this.emit( 'navigate', `/admin/user/edit/${user._id}`) )
+        this.views[ user._id ]
+        .on( 'edit', () => this.emit( 'navigate', `/admin/user/edit/${user._id}`) )
+        .on( 'delete', () =>
+            this.Xhr( { method: 'delete', resource: `user/${user._id}` } )
+            .then( () => this.views[ user._id ].delete() )
+            .catch( this.Error )
+        )
+    },
+
+    delete() {
+        return ( ( this.views.UserManage )
+            ? this.views.UserManage.delete()
+            : Promise.resolve() )
+        .then( () => require('./__proto__').delete.call(this) )
     },
 
     events: {

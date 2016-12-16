@@ -41,7 +41,7 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
         return this.hide()
         .then( () => {
             this.els.container.parentNode.removeChild( this.els.container )
-            return Promise.resolve( this.emit('removed') )
+            return Promise.resolve( this.emit('deleted') )
         } )
     },
 
@@ -75,8 +75,9 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
 
     hide() {
         return new Promise( resolve => {
+            if( !document.body.contains(this.els.container) ) return resolve()
             this.onHiddenProxy = e => this.onHidden(resolve)
-            this.els.container.addEventListener( 'transitionend', this.onHiddenProxy, true )
+            this.els.container.addEventListener( 'transitionend', this.onHiddenProxy )
             this.els.container.classList.add('hide')
         } )
     },
@@ -90,16 +91,20 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
     
     isHidden() { return this.els.container.css('display') === 'none' },
 
-    onHidden(resolve) {
+    onHidden( resolve ) {
         this.els.container.removeEventListener( 'transitionend', this.onHiddenProxy )
         this.els.container.classList.add('hidden')
         resolve( this.emit('hidden') )
     },
 
     onLogin() {
-        this.router.header.onUser( this.user )
+        Object.assign( this, { els: { }, slurp: { attr: 'data-js', view: 'data-view' }, views: { } } ).render()
+    },
 
-        this[ ( this.hasPrivileges() ) ? 'render' : 'showNoAccess' ]()
+    onShown( resolve ) {
+        this.els.container.removeEventListener( 'transitionend', this.onShownProxy )
+        if( this.size ) this.size()
+        resolve( this.emit('shown') )
     },
 
     showNoAccess() {
@@ -140,11 +145,9 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
 
     show( duration ) {
         return new Promise( resolve => {
+            this.onShownProxy = e => this.onShown(resolve)
+            this.els.container.addEventListener( 'transitionend', this.onShownProxy )
             this.els.container.classList.remove( 'hide', 'hidden' )
-            this.els.container.addEventListener( 'transitionend', e => {
-                if( this.size ) this.size()
-                resolve( this.emit('shown') )
-            }, true )
         } )
     },
 

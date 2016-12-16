@@ -15,15 +15,16 @@ module.exports = Object.create( {
 
         this.header = this.ViewFactory.create( 'header', { insertion: { value: { el: this.contentContainer, method: 'insertBefore' } } } )
 
-        this.User.get().then( () => {
+        this.User.get().then( () =>
         
             this.header.onUser()
             .on( 'signout', () => 
                 Promise.all( Object.keys( this.views ).map( name => this.views[ name ].delete() ) )
-                .then( () => this.navigate( '' ) )
+                .then( () => this.header.emit( 'navigate', '/' ) )
+                .catch( this.Error )
             )
 
-        } )
+        )
         .catch( this.Error )
         .then( () => this.handle() )
 
@@ -55,6 +56,7 @@ module.exports = Object.create( {
                     } )
             )
         } )
+        .catch( this.Error )
     },
 
     navigate( location ) {
