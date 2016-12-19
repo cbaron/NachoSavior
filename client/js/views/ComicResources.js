@@ -1,9 +1,9 @@
 module.exports = Object.assign( {}, require('./__proto__'), {
 
-    createComicView( comic ) {
+    createComicView( comic, opts={} ) {
         this.views[ comic._id ] = this.factory.create(
             'Comic',
-            { insertion: { value: { el: this.els.list } },
+            { insertion: opts.insertion || { value: { el: this.els.list } },
               model: { value: { data: comic } }
             }
         )
@@ -28,12 +28,21 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         addBtn: 'click'
     },
 
+    fetchAndDisplay() {
+        this.fetching = true
+        return this.comics.get()
+        .then( response => {
+            response.forEach( comic => this.createComicView(comic) )
+            return Promise.resolve(this.fetching = false )
+        } )
+    },
+
     manageComic( type, comic ) {
         this.views.ComicManage 
             ? this.views.ComicManage.onNavigation( type, comic )
             : this.views.ComicManage =
                 this.factory.create( 'ComicManage', { type: { value: type, writable: true }, model: { value: { data: comic || {} } }, insertion: { value: { el: this.els.container, method: 'insertBefore' } } } )
-                .on( 'added', comic => { this.createComicView(comic); this.emit( 'navigate', `/admin/comic` ); } )
+                .on( 'added', comic => { this.createComicView(comic, { insertion: { value: { el: this.els.list.firstChild, method: 'insertBefore' } } } ); this.emit( 'navigate', `/admin/comic` ); } )
                 .on( 'cancelled', () => this.emit( 'navigate', `/admin/comic` ) )
                 .on( 'edited', comic => { this.views[ comic._id ].update( comic ); this.emit( 'navigate', `/admin/comic` ); } )
     },
@@ -54,7 +63,13 @@ module.exports = Object.assign( {}, require('./__proto__'), {
                      : undefined
     },
 
+    onScroll( e ) {
+        if( this.fetching || this.isHidden() ) return
+        if( ( this.content.offsetHeight - ( window.scrollY + window.innerHeight ) ) < 100 ) window.requestAnimationFrame( this.fetchAndDisplay.bind(this).catch( this.Error ) )
+    },
+
     postRender() {
+        this.content = document.querySelector('#content')
 
         if( this.path.length > 2 ) {
             this.els.container.classList.add( 'hidden', 'hide' )
@@ -68,11 +83,11 @@ module.exports = Object.assign( {}, require('./__proto__'), {
             this.views.ComicManage.hide()
         }
 
-        this.comics = Object.create( this.Model, { resource: { value: 'comic' } } )
+        this.comics = Object.create( this.Model, { pagination: { value: { skip: 0, limit:10, sort: { created: -1 } } }, resource: { value: 'comic' } } )
+        
+        this.fetchAndDisplay().catch( this.Error )
 
-        this.comics.get()
-        .then( () => Promise.resolve( this.comics.data.forEach( comic => this.createComicView( comic ) ) ) )
-        .catch( this.Error )
+        window.addEventListener( 'scroll', e => this.onScroll(e) )
 
         return this
     },

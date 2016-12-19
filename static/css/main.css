@@ -1,3 +1,20 @@
+@font-face {
+  font-family: 'Lato';
+  font-weight: 400;
+  src: url("/static/fonts/Lato-Regular.eot");
+  src: url("/static/fonts/Lato-Regular.woff2") format('woff2'), url("/static/fonts/Lato-Regular.woff") format('woff'), url("/static/fonts/Lato-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-weight: 700;
+  src: url("/static/fonts/Lato-Bold.eot");
+  src: url("/static/fonts/Lato-Bold.woff2") format('woff2'), url("/static/fonts/Lato-Bold.woff") format('woff'), url("/static/fonts/Lato-Bold.ttf") format('truetype');
+}
+@font-face {
+  font-family: 'LatoLight';
+  src: url("/static/fonts/Lato-Light.eot");
+  src: url("/static/fonts/Lato-Light.woff2") format('woff2'), url("/static/fonts/Lato-Light.woff") format('woff'), url("/static/fonts/Lato-Light.ttf") format('truetype');
+}
 .Admin {
   text-align: center;
   margin-left: 12%;
@@ -20,6 +37,8 @@
   background-color: #d3d3d3;
 }
 .Comic {
+  border-bottom: 1px solid #d3d3d3;
+  padding-bottom: 10px;
   margin: 2rem auto;
   width: 90%;
 }
@@ -38,8 +57,8 @@
 }
 .Comic img {
   display: block;
-  width: 100%;
   margin: 1rem auto;
+  max-width: 100%;
 }
 .Comic .share {
   float: left;
@@ -50,9 +69,6 @@
   height: 2rem;
   margin: 0 2px;
   width: 2rem;
-}
-.Comic+.Comic {
-  border-top: 1px solid #d3d3d3;
 }
 .ComicManage {
   margin-left: 12%;
@@ -98,9 +114,7 @@
   line-height: 2rem;
 }
 .ComicResources .Comic {
-  border-bottom: 1px solid #d3d3d3;
-  border-left: 1px solid #d3d3d3;
-  border-right: 1px solid #d3d3d3;
+  border: 1px solid #d3d3d3;
   padding: 1rem;
 }
 .ComicResources .Comic:first-child {
@@ -126,6 +140,18 @@
 .Home {
   width: 75%;
   margin-left: 12%;
+}
+@media (max-width: 767px) {
+  .Home {
+    width: 96%;
+    margin-left: 3%;
+  }
+}
+@media (min-width: 768px) {
+  .Home {
+    width: 90%;
+    margin-left: 5%;
+  }
 }
 .Login {
   margin-left: 12%;

@@ -13,11 +13,13 @@ module.exports = p =>
            </div>`
         : ``}
     <img data-js="image" src="${p.image ? p.image : ''}"/>
-    <div class="clearfix">
-        <div class="share">
-            ${require('./lib/facebook')}
-            ${require('./lib/twitter')}
-            ${require('./lib/google')}
-        </div>
-    </div>
+    ${p.opts.readOnly
+        ? `<div class="clearfix">
+             <div class="share">
+                 ${require('./lib/facebook')}
+                 ${require('./lib/twitter')}
+                 ${require('./lib/google')}
+             </div>
+         </div>`
+        : `` }
 </div>`

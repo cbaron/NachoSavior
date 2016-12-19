@@ -1,13 +1,15 @@
 module.exports = Object.assign( {}, require('./__proto__'), {
 
     fetchAndDisplay() {
+        this.fetching = true
         return this.getData()
-        .then( response => 
+        .then( response => {
             response.forEach( comic =>
                 this.views[ comic._id ] =
                     this.factory.create( 'comic', { insertion: { value: { el: this.els.container } }, model: { value: { data: comic } }, templateOpts: { value: { readOnly: true } } } )
             )
-        )
+            return Promise.resolve(this.fetching = false )
+        } )
     },
 
     getData() {
@@ -20,8 +22,18 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         this.show()
     },
 
+    onScroll( e ) {
+        if( this.fetching ) return
+        if( ( this.content.offsetHeight - ( window.scrollY + window.innerHeight ) ) < 100 ) window.requestAnimationFrame( this.fetchAndDisplay.bind(this) )
+    },
+
     postRender() {
+        this.content = document.querySelector('#content')
+        
         this.fetchAndDisplay().catch( this.Error )
+
+        window.addEventListener( 'scroll', e => this.onScroll(e) )
+
         return this
     }
 

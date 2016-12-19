@@ -67,7 +67,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
 
     requestAdd() {
         return this.Xhr( { method: 'POST', resource: 'file', data: this.binaryFile, headers: { contentType: 'application/octet-stream' } } )
-        .then( response => this.Xhr( { method: 'POST', resource: 'comic', data: JSON.stringify( { title: this.els.title.value, image: response.path } ) } ) )
+        .then( response => this.Xhr( { method: 'POST', resource: 'comic', data: JSON.stringify( { title: this.els.title.value, image: response.path, created: new Date().toISOString() } ) } ) )
         .then( response => this.hide().then( () => this.emit( 'added', response ) ) )
     },
 
