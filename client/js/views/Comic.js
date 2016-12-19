@@ -15,6 +15,10 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         return `${window.location.origin}/comic/${this.model.data._id}`
     },
 
+    getComic() {
+        return `${window.location.origin}${this.model.data.image}`
+    },
+
     navigate( path ) {
         this.path = path
         this.model.resource = `comic/${this.path[1]}`
@@ -53,7 +57,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         window.open(
             `http://www.zazzle.com/api/create/at-238555878123854031?rf=238357470884685468&` +
             `ax=DesignBlast&sr=250375202542180800&cg=0&t__useQpc=true&ed=false&t__smart=true&` +
-            `continueUrl=${encodeURIComponent(window.location.origin)}&fwd=ProductPage&tc=${window.location}&ic=${this.model.data._id}&image1=${this.model.data.image}` )
+            `continueUrl=${encodeURIComponent(window.location.origin)}&fwd=ProductPage&tc=${window.location}&ic=${this.model.data._id}&image1=${this.getComic()}` )
     },
     
     onGoogleClick() { window.open( `https://plus.google.com/share?url={${this.getLink()}}`) },
