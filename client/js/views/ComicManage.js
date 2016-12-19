@@ -27,9 +27,15 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         if( Object.keys( this.model.data ).length ) {
             this.els.title.value = this.model.data.title || ''
             this.els.preview.src = this.model.data.image
+            this.els.contextPreview.src = this.model.data.context
+            this.els.preContext.value = this.model.data.preContext
+            this.els.postContext.value = this.model.data.postContext
         } else {
             this.els.title.value = ''
             this.els.preview.src = ''
+            this.els.preContext.value = ''
+            this.els.postContext.value = ''
+            this.els.contextPreview.src = ''
         }
     },
 
@@ -51,11 +57,28 @@ module.exports = Object.assign( {}, require('./__proto__'), {
             this.els.upload.appendChild( this.spinner.spin().el )
 
             base64Reader.onload = ( evt ) => {
-                this.file = evt.target.result
                 this.els.upload.classList.remove('has-spinner')
                 this.spinner.stop()
                 this.els.preview.src = evt.target.result 
                 binaryReader.onload = event => this.binaryFile = event.target.result
+                binaryReader.readAsArrayBuffer( e.target.files[0] )
+            }
+
+            base64Reader.readAsDataURL( e.target.files[0] )
+        } )
+
+        this.els.context.addEventListener( 'change', e => {
+            const base64Reader = new FileReader(),
+                  binaryReader = new FileReader()
+            
+            this.els.contextUpload.classList.add('has-spinner')
+            this.els.contextUpload.appendChild( this.spinner.spin().el )
+
+            base64Reader.onload = ( evt ) => {
+                this.els.upload.classList.remove('has-spinner')
+                this.spinner.stop()
+                this.els.contextPreview.src = evt.target.result 
+                binaryReader.onload = event => this.binaryContext = event.target.result
                 binaryReader.readAsArrayBuffer( e.target.files[0] )
             }
 
@@ -66,8 +89,27 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     },
 
     requestAdd() {
-        return this.Xhr( { method: 'POST', resource: 'file', data: this.binaryFile, headers: { contentType: 'application/octet-stream' } } )
-        .then( response => this.Xhr( { method: 'POST', resource: 'comic', data: JSON.stringify( { title: this.els.title.value, image: response.path, created: new Date().toISOString() } ) } ) )
+        if( !this.binaryFile ) return Promise.resolve()
+
+        let uploads = [ this.Xhr( { method: 'POST', resource: 'file', data: this.binaryFile, headers: { contentType: 'application/octet-stream' } } ) ]
+
+        if( this.binaryContext ) uploads.push( this.Xhr( { method: 'POST', resource: 'file', data: this.binaryContext, headers: { contentType: 'application/octet-stream' } } ) )
+
+        return Promise.all( uploads )
+        .then( ( [ comicResponse, contextResponse ] ) =>
+            this.Xhr( {
+                method: 'POST',
+                resource: 'comic',
+                data: JSON.stringify( {
+                    title: this.els.title.value,
+                    image: comicResponse.path,
+                    preContext: this.els.preContext.value,
+                    context: contextResponse ? contextResponse.path : undefined,
+                    postContext: this.els.postContext.value,
+                    created: new Date().toISOString()
+                } )
+            } )
+        )
         .then( response => this.hide().then( () => this.emit( 'added', response ) ) )
     },
 

@@ -4,7 +4,7 @@
     margin: 2rem auto
     width: 90%
 
-    div:first-child
+    .header
         text-align: center
         font-weight: 700
         font-size: 1.5rem
@@ -16,10 +16,25 @@
 
             &:hover
                 border-bottom: 1px solid lightgrey
+
+    .pre-context,
+    .post-context
+        font-style: italic;
+        color: lightgray;
+        font-size: .75rem;
+
+    .date
+        float: left
+        font-size: .75rem
+        margin-top: 1rem
+
+    .context
+        max-width: 75%
+
     img
         display: block
-        margin: 1rem auto
-        max-width: 100%
+        margin: 0rem auto 1rem auto
+        width: 100%
 
     .share
         float: left

@@ -6,6 +6,24 @@ module.exports = p =>
        <input data-js="title" type="text"></input>
     </div>
     <div class="form-group">
+       <label class="form-label">pre context</label>
+       <input data-js="preContext" type="text"></input>
+    </div>
+    <div class="form-group">
+       <label class="form-label">context</label>
+        <div>
+            <div data-js="contextUpload" class="upload">
+                <span>Upload File</span>
+                <input type="file" data-js="context" />
+            </div>
+            <img class="preview" data-js="contextPreview" />
+        </div>
+    </div>
+    <div class="form-group">
+       <label class="form-label">post context</label>
+       <input data-js="postContext" type="text"></input>
+    </div>
+    <div class="form-group">
        <label class="form-label">image</label>
         <div>
             <div data-js="upload" class="upload">

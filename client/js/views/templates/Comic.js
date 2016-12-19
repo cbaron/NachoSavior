@@ -2,6 +2,9 @@ module.exports = p =>
 `<div>
     <div class="header" data-js="header">
         <div class="title" data-js="title" >${p.title || ''}</div>
+        <div class="pre-context" data-js="preContext" >${p.preContext || ''}</div>
+        <div><img data-js="context" class="context" src="${p.context ? p.context : ''}"/></div>
+        <div class="post-context" data-js="postContext" >${p.postContext || ''}</div>
         ${p._id && p.user._id && !p.opts.readOnly ? '<button class="delete" data-js="delete"></button>' : ''}
         ${p._id && p.user._id && !p.opts.readOnly ? '<button class="edit" data-js="edit"></button>' : ''}
     </div>
@@ -12,6 +15,9 @@ module.exports = p =>
                <button data-js="cancel" type="button">Cancel</button> 
            </div>`
         : ``}
+    <div class="clearfix">
+        <div class="date">${(require('moment'))(p.created).format('MM-DD-YYYY')}</div>
+    </div>
     <img data-js="image" src="${p.image ? p.image : ''}"/>
     ${p.opts.readOnly
         ? `<div class="clearfix">

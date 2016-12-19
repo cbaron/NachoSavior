@@ -42,23 +42,37 @@
   margin: 2rem auto;
   width: 90%;
 }
-.Comic div:first-child {
+.Comic .header {
   text-align: center;
   font-weight: 700;
   font-size: 1.5rem;
 }
-.Comic div:first-child .title {
+.Comic .header .title {
   border-bottom: 1px solid transparent;
   cursor: pointer;
   display: inline-block;
 }
-.Comic div:first-child .title:hover {
+.Comic .header .title:hover {
   border-bottom: 1px solid #d3d3d3;
+}
+.Comic .pre-context,
+.Comic .post-context {
+  font-style: italic;
+  color: #d3d3d3;
+  font-size: 0.75rem;
+}
+.Comic .date {
+  float: left;
+  font-size: 0.75rem;
+  margin-top: 1rem;
+}
+.Comic .context {
+  max-width: 75%;
 }
 .Comic img {
   display: block;
-  margin: 1rem auto;
-  max-width: 100%;
+  margin: 0rem auto 1rem auto;
+  width: 100%;
 }
 .Comic .share {
   float: left;
@@ -131,10 +145,10 @@
 .ComicResources .Comic .confirm {
   height: 2rem;
 }
-.ComicResources .Comic button:nth-child(2) {
+.ComicResources .Comic button:nth-child(5) {
   right: 1rem;
 }
-.ComicResources .Comic button:nth-child(3) {
+.ComicResources .Comic button:nth-child(6) {
   right: 4rem;
 }
 .Home {
