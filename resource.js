@@ -58,7 +58,7 @@ module.exports = Object.assign( { }, require('./lib/MyObject'), {
                 this.respond( {
                     body: {},
                     headers: {
-                        'Set-Cookie': `${process.env.COOKIE}=${token}; Expires=${new Date("2020-01-20").toUTCString()}`
+                        'Set-Cookie': `${process.env.COOKIE}=${token}; Expires=${new Date("2021-01-20").toUTCString()}`
                     }
                 } )
             )

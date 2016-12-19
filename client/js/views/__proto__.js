@@ -75,7 +75,7 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
 
     hide() {
         return new Promise( resolve => {
-            if( !document.body.contains(this.els.container) ) return resolve()
+            if( !document.body.contains(this.els.container) || this.isHidden() ) return resolve()
             this.onHiddenProxy = e => this.onHidden(resolve)
             this.els.container.addEventListener( 'transitionend', this.onHiddenProxy )
             this.els.container.classList.add('hide')
@@ -89,7 +89,7 @@ module.exports = Object.assign( { }, require('../../../lib/MyObject'), require('
         return range.createContextualFragment( str )
     },
     
-    isHidden() { return this.els.container.css('display') === 'none' },
+    isHidden() { return this.els.container.classList.contains('hidden') },
 
     onHidden( resolve ) {
         this.els.container.removeEventListener( 'transitionend', this.onHiddenProxy )

@@ -20,17 +20,36 @@
   background-color: #d3d3d3;
 }
 .Comic {
-  margin: 2rem 0rem;
+  margin: 2rem auto;
+  width: 90%;
 }
 .Comic div:first-child {
   text-align: center;
   font-weight: 700;
   font-size: 1.5rem;
 }
+.Comic div:first-child .title {
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  display: inline-block;
+}
+.Comic div:first-child .title:hover {
+  border-bottom: 1px solid #d3d3d3;
+}
 .Comic img {
   display: block;
-  max-width: 100%;
+  width: 100%;
   margin: 1rem auto;
+}
+.Comic .share {
+  float: left;
+  height: 2rem;
+}
+.Comic .share svg {
+  cursor: pointer;
+  height: 2rem;
+  margin: 0 2px;
+  width: 2rem;
 }
 .Comic+.Comic {
   border-top: 1px solid #d3d3d3;
@@ -261,6 +280,23 @@ button:focus {
 }
 .hidden {
   display: none !important;
+}
+.clearfix {
+  display: inline-block;
+}
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+* html .clearfix {
+  height: 1%;
+}
+.clearfix {
+  display: block;
 }
 div.upload,
 button {

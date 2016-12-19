@@ -1,14 +1,33 @@
 .Comic
-    margin: 2rem 0rem
+    margin: 2rem auto
+    width: 90%
 
     div:first-child
         text-align: center
         font-weight: 700
         font-size: 1.5rem
+        
+        .title
+            border-bottom: 1px solid transparent
+            cursor: pointer
+            display: inline-block
+
+            &:hover
+                border-bottom: 1px solid lightgrey
     img
         display: block
-        max-width: 100%
+        width: 100%
         margin: 1rem auto
+
+    .share
+        float: left
+        height: 2rem
+
+        svg
+            cursor: pointer
+            height: 2rem
+            margin: 0 2px
+            width: 2rem
 
 .Comic+.Comic
     border-top: 1px solid lightgrey
