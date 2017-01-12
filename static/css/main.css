@@ -39,7 +39,7 @@
 .Comic {
   border-bottom: 1px solid #d3d3d3;
   padding-bottom: 10px;
-  margin: 2rem auto;
+  margin: 4rem auto;
   width: 90%;
 }
 .Comic .header {
@@ -83,6 +83,12 @@
   height: 2rem;
   margin: 0 2px;
   width: 2rem;
+}
+.Comic .store {
+  cursor: pointer;
+  float: right;
+  line-height: 2rem;
+  font-size: 1.25rem;
 }
 .ComicManage {
   margin-left: 12%;
@@ -470,6 +476,7 @@ header span:nth-child(2) {
   font-size: 1.5rem;
 }
 header img {
+  border-radius: 5px;
   display: inline;
   height: 2rem;
   float: right;

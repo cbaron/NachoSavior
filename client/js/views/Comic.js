@@ -7,6 +7,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         edit: 'click',
         facebook: 'click',
         google: 'click',
+        store: 'click',
         title: 'click',
         twitter: 'click'
     },
@@ -51,9 +52,9 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         if( this.user && this.user.data._id ) this.emit('edit')
     },
 
-    //onFacebookClick() { window.open( `https://www.facebook.com/share.php?u=${this.getLink()}` ) },
+    onFacebookClick() { window.open( `https://www.facebook.com/share.php?u=${this.getLink()}` ) },
 
-    onFacebookClick() {
+    onStoreClick() {
         window.open(
             `http://www.zazzle.com/api/create/at-238357470884685468?rf=238357470884685468&ax=DesignBlast&sr=250782469400013616&cg=196167085186428961&t__useQpc=false&ds=true&t__smart=true&continueUrl=http%3A%2F%2Fwww.zazzle.com%2Ftinyhanded&fwd=ProductPage&tc=&ic=&t_image1_iid=${encodeURIComponent(this.getComic())}`
         )

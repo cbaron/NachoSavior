@@ -90,6 +90,7 @@ module.exports = Object.create( Object.assign( {}, require('./lib/MyObject'), {
         response.writeHead( 200 )
         response.end( require('./templates/page')( {
             isDev: this.isDev,
+            isSecure: request.connection.encrypted,
             title: process.env.NAME
         } ) )
         return Promise.resolve()
