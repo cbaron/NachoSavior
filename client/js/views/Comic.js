@@ -16,7 +16,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     },
 
     getComic() {
-        return encodeURIComponent( `${window.location.origin}${this.model.data.image}` )
+        return `${window.location.origin}${this.model.data.image}`
     },
 
     navigate( path ) {
@@ -54,14 +54,9 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     //onFacebookClick() { window.open( `https://www.facebook.com/share.php?u=${this.getLink()}` ) },
 
     onFacebookClick() {
-        console.log(`http://www.zazzle.com/api/create/at-238357470884685468?rf=238357470884685468&` +
-            `ax=designblast&br=true&cg=196167085186428961&t__useQpc=true&ed=false&t__smart=true&` +
-            `continueUrl=${encodeURIComponent(window.location.origin)}&fwd=ProductPage&tc=${window.location}&ic=${this.model.data._id}&image1=${this.getComic()}`);
-
         window.open(
-            `http://www.zazzle.com/api/create/at-238357470884685468?rf=238357470884685468&` +
-            `ax=designblast&br=true&cg=196167085186428961&t__useQpc=true&ed=false&t__smart=true&` +
-            `continueUrl=${encodeURIComponent(window.location.origin)}&fwd=ProductPage&tc=${window.location}&ic=${this.model.data._id}&image1=${this.getComic()}` )
+            `http://www.zazzle.com/api/create/at-238357470884685468?rf=238357470884685468&ax=DesignBlast&sr=250782469400013616&cg=196167085186428961&t__useQpc=false&ds=true&t__smart=true&continueUrl=http%3A%2F%2Fwww.zazzle.com%2Ftinyhanded&fwd=ProductPage&tc=&ic=&t_image1_iid=${encodeURIComponent(this.getComic())}`
+        )
     },
     
     onGoogleClick() { window.open( `https://plus.google.com/share?url={${this.getLink()}}`) },
