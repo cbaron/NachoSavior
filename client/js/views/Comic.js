@@ -16,7 +16,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     },
 
     getComic() {
-        return `${window.location.origin}${this.model.data.image}`
+        return encodeURIComponent( `${window.location.origin}${this.model.data.image}` )
     },
 
     navigate( path ) {
