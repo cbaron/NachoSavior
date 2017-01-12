@@ -67,7 +67,10 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     onTwitterClick() { window.open( `https://www.twitter.com/share?url=${this.getLink()}&via=tinyhanded&text=${encodeURIComponent(this.model.data.title)}` ) },
 
     postRender() {
-        if( this.model && this.model.data._id ) return this
+        if( this.model && this.model.data._id ) {
+            if( ! this.model.data.context ) { this.els.context.style.display = 'none' }
+            return this
+        }
 
         if( this.path.length !== 2 ) { this.emit( 'navigate', '' ); return this }
 
@@ -82,6 +85,14 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     update(comic) {
         this.model.data = comic
         this.els.title.textContent = comic.title
+        this.els.preContext.textContent = comic.preContext
+        this.els.postContext.textContent = comic.postContext
         this.els.image.src = `${comic.image}?${new Date().getTime()}`
+
+        if( ! comic.context ) { this.els.context.style.display = 'none' }
+        else {
+            this.els.context.src = comic.context
+            this.els.context.style.display = 'block'
+        }
     }
 } )

@@ -1,10 +1,9 @@
 module.exports = p => {
-const context = p.context ? `<div><img data-js="context" class="context" src="${p.context}"/></div>` : ``
 return `<div>
     <div class="header" data-js="header">
         <div class="title" data-js="title" >${p.title || ''}</div>
         <div class="pre-context" data-js="preContext" >${p.preContext || ''}</div>
-        ${context}
+        <div><img data-js="context" class="context" src="${p.context || ''}"/></div>
         <div class="post-context" data-js="postContext" >${p.postContext || ''}</div>
         ${p._id && p.user._id && !p.opts.readOnly ? '<button class="delete" data-js="delete"></button>' : ''}
         ${p._id && p.user._id && !p.opts.readOnly ? '<button class="edit" data-js="edit"></button>' : ''}
