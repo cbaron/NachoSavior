@@ -15,6 +15,9 @@ return `<!DOCTYPE html>
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta property="og:image" content="${prefix}/static/img/trump.jpg" />
+        <meta property="og:title" content="Tiny Handed" />
+
         
         ${js}
         <title>${p.title}</title>
