@@ -52,7 +52,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         if( this.user && this.user.data._id ) this.emit('edit')
     },
 
-    onFacebookClick() { window.open( `https://www.facebook.com/share.php?u=${this.getLink()}` ) },
+    onFacebookClick() { window.open( `https://www.facebook.com/sharer.php?u=${this.getLink()}` ) },
 
     onStoreClick() {
         window.open(
