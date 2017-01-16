@@ -11,13 +11,15 @@ const js = p.isDev
 return `<!DOCTYPE html>
 <html>
     <head>
+        <link rel="image_src" type="image/jpeg" href="${prefix}/static/img/trump.jpg" />
         <link rel="stylesheet" type="text/css" href="${prefix}/static/css/main.css.gz">
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta property="og:image" content="${prefix}/static/img/trump.jpg" />
+        <meta property="og:url" content="${prefix}${p.request.url}" />
         <meta property="og:title" content="Tiny Handed" />
-
+        <meta property="og:description" content="What a waste of piss." />
+        <meta property="og:image" content="${prefix}/static/img/trump.jpg" />
         
         ${js}
         <title>${p.title}</title>
