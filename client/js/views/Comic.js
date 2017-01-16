@@ -13,7 +13,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     },
 
     getLink() {
-        return `${window.location.origin}/comic/${this.model.data._id}`
+        return `${encodeURIComponent(window.location.origin)}/comic/${this.model.data._id}`
     },
 
     getComic() {
