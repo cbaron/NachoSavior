@@ -18,7 +18,7 @@ module.exports = Object.create( Object.assign( {}, require('./lib/MyObject'), {
             condition: ( request, path ) => ( path[0] === "static" ) || path[0] === "favicon.ico",
             method: 'static'
         }, {
-            condition: ( request, path ) => /text\/html/.test( request.headers.accept ),
+            condition: ( request, path ) => /(text\/html|\*\/\*)/.test( request.headers.accept ),
             method: 'html'
         }, {
             condition: ( request, path ) => /application\/ld\+json/.test( request.headers.accept ),
