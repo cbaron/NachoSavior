@@ -60,7 +60,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         )
     },
     
-    onGoogleClick() { window.open( `https://plus.google.com/share?url={${this.getLink()}}`) },
+    onGoogleClick() { window.open( `https://plus.google.com/share?url=${this.getLink()}`) },
     
     onTitleClick() { this.emit( 'navigate', `/comic/${this.model.data._id}` ) },
 
