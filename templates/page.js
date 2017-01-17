@@ -17,10 +17,10 @@ return `<!DOCTYPE html>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <meta property="og:url" content="${prefix}${p.request.url}" />
-        <meta property="og:title" content="Tiny Handed" />
-        <meta property="og:description" content="What a waste of piss." />
+        <meta property="og:title" content="${ item ? item.title : 'Tiny Handed'}" />
+        <meta property="og:description" content="Unpresidented idiot." />
         <meta property="og:image" content="${prefix}/static/img/trump.jpg" />
-        <meta property="og:type"               content="article" />
+        <meta property="og:type" content="article" />
 
         ${js}
         <title>${p.title}</title>

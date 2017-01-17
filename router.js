@@ -87,14 +87,21 @@ module.exports = Object.create( Object.assign( {}, require('./lib/MyObject'), {
     },
 
     html( request, response, path ) {
-        response.writeHead( 200 )
-        response.end( require('./templates/page')( {
-            isDev: this.isDev,
-            isSecure: request.connection.encrypted,
-            request,
-            title: process.env.NAME
-        } ) )
-        return Promise.resolve()
+        return ( /comic/i.test( path[0] ) && path[1]
+            ? this.Mongo.getDb( db => db.collection('comic').findOne( { _id: this.Mongo.ObjectId( this.path[1] ) } ) )
+            : Promise.resolve( false )
+        )
+        .then( item => {
+            response.writeHead( 200 )
+            response.end( require('./templates/page')( {
+                item,
+                isDev: this.isDev,
+                isSecure: request.connection.encrypted,
+                request,
+                title: process.env.NAME
+            } ) )
+            return Promise.resolve()
+        } )
     },
 
     rest( request, response, path ) {

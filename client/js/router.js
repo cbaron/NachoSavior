@@ -52,7 +52,8 @@ module.exports = Object.create( {
                 this.views[ view ] =
                     this.ViewFactory.create( view, {
                         insertion: { value: { el: this.contentContainer } },
-                        path: { value: path, writable: true }
+                        path: { value: path, writable: true },
+                        templateOpts: { value: { readOnly: true } }
                     } )
             )
         } )
