@@ -5,6 +5,7 @@ const prefix = p.isSecure
     : `http://${process.env.DOMAIN}:${process.env.PORT}`
       
 const title = p.item.title ? p.item.title : 'Tiny Handed'
+const image = prefix + (p.item.image ? p.item.image : '/static/img/trump.jpg')
 
 const js = p.isDev
     ? `<script src="${prefix}/static/js/vendor.js.gz"></script><script src="${prefix}/static/js/debug.js.gz"></script>`
@@ -21,7 +22,7 @@ return `<!DOCTYPE html>
         <meta property="og:url" content="${prefix}${p.request.url}" />
         <meta property="og:title" content="${ title }" />
         <meta property="og:description" content="Unpresidented idiot." />
-        <meta property="og:image" content="${prefix}/static/img/trump.jpg" />
+        <meta property="og:image" content="${image}" />
         <meta property="og:type" content="article" />
 
         <meta name="twitter:card" content="summary_large_image">
@@ -29,7 +30,7 @@ return `<!DOCTYPE html>
         <meta name="twitter:title" content="${ title }">
         <meta name="twitter:description" content="Unpresidented Idiot.">
         <meta name="twitter:creator" content="@tinyhanded">
-        <meta name="twitter:image" content="${ prefix + (p.item.image ? p.item.image : '/static/img/trump.jpg') }">
+        <meta name="twitter:image" content="${image}">
 
         ${js}
         <title>${title}</title>
