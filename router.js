@@ -88,11 +88,11 @@ module.exports = Object.create( Object.assign( {}, require('./lib/MyObject'), {
 
     html( request, response, path ) {
         return ( /comic/i.test( path[0] ) && path[1]
-            ? this.Mongo.getDb( db => db.collection('comic').findOne( { _id: this.Mongo.ObjectId( this.path[1] ) } ) )
+            ? this.Mongo.getDb( db => db.collection('comic').findOne( { _id: this.Mongo.ObjectId( path[1] ) } ) )
             : Promise.resolve( { } )
         )
         .then( item => {
-            response.writeHead( 200 )
+            response.writeHead( 200, { 'Content-Type': 'text/html' } )
             response.end( require('./templates/page')( {
                 item,
                 isDev: this.isDev,

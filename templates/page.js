@@ -3,6 +3,8 @@ module.exports = p => {
 const prefix = p.isSecure
     ? `https://${process.env.DOMAIN}:${process.env.SECURE_PORT}`
     : `http://${process.env.DOMAIN}:${process.env.PORT}`
+      
+const title = p.item.title ? p.item.title : 'Tiny Handed'
 
 const js = p.isDev
     ? `<script src="${prefix}/static/js/vendor.js.gz"></script><script src="${prefix}/static/js/debug.js.gz"></script>`
@@ -17,13 +19,20 @@ return `<!DOCTYPE html>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <meta property="og:url" content="${prefix}${p.request.url}" />
-        <meta property="og:title" content="${ item.title ? item.title : 'Tiny Handed'}" />
+        <meta property="og:title" content="${ title }" />
         <meta property="og:description" content="Unpresidented idiot." />
         <meta property="og:image" content="${prefix}/static/img/trump.jpg" />
         <meta property="og:type" content="article" />
 
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@tinyhanded">
+        <meta name="twitter:title" content="${ title }">
+        <meta name="twitter:description" content="Unpresidented Idiot.">
+        <meta name="twitter:creator" content="@tinyhanded">
+        <meta name="twitter:image" content="${ prefix + (p.item.image ? p.item.image : '/static/img/trump.jpg') }">
+
         ${js}
-        <title>${p.title}</title>
+        <title>${title}</title>
     </head>
 
     <body>
