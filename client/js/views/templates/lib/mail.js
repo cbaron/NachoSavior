@@ -1,5 +1,5 @@
 module.exports = `<svg data-js="mail" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 14 14" style="enable-background:new 0 0 14 14;" xml:space="preserve">
+	 viewBox="0 0 14 13" style="enable-background:new 0 0 14 13;" xml:space="preserve">
 	<g>
 		<path style="fill:#030104;" d="M7,9L5.268,7.484l-4.952,4.245C0.496,11.896,0.739,12,1.007,12h11.986
 			c0.267,0,0.509-0.104,0.688-0.271L8.732,7.484L7,9z"/>
