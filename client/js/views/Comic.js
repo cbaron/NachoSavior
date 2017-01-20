@@ -7,7 +7,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         edit: 'click',
         facebook: 'click',
         google: 'click',
-        store: 'click',
+        //store: 'click',
         title: 'click',
         twitter: 'click'
     },

@@ -26,7 +26,7 @@ return `<div>
                  ${require('./lib/twitter')}
                  ${require('./lib/google')}
              </div>
-             <div class="store" data-js="store">Store</div>
+             <!-- <div class="store" data-js="store">Store</div> -->
          </div>`
         : `` }
 </div>`

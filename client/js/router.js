@@ -20,7 +20,11 @@ module.exports = Object.create( {
             this.header.onUser()
             .on( 'signout', () => 
                 Promise.all( Object.keys( this.views ).map( name => this.views[ name ].delete() ) )
-                .then( () => this.header.emit( 'navigate', '/' ) )
+                .then( () => {
+                    this.views = { }
+                    history.pushState( {}, '', '/' );
+                    return Promise.resolve( this.handle() )
+                } )
                 .catch( this.Error )
             )
 
@@ -65,4 +69,4 @@ module.exports = Object.create( {
         this.handle()
     }
 
-}, { currentView: { value: '', writable: true }, views: { value: { } } } )
+}, { currentView: { value: '', writable: true }, views: { value: { } , writable: true } } )
