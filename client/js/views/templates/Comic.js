@@ -25,6 +25,7 @@ return `<div>
                  ${require('./lib/facebook')}
                  ${require('./lib/twitter')}
                  ${require('./lib/google')}
+                 <a href="mailto:badhombre@tinyhanded.com">${require('./lib/mail')}</a>
              </div>
              <!-- <div class="store" data-js="store">Store</div> -->
          </div>`
