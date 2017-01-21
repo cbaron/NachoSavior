@@ -277,7 +277,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  padding-top: 3rem;
+  padding-top: 4rem;
 }
 h1,
 h2,
@@ -449,38 +449,15 @@ img.preview {
 header {
   background-color: #fff;
   box-shadow: 0 1px 6px rgba(0,0,0,0.35);
-  height: 3rem;
+  height: 4rem;
   left: 0;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 100;
 }
-header ul,
-header li {
-  display: inline-block;
-}
-header ul {
-  float: left;
-  width: 33%;
-}
-header li {
-  font-size: 1rem;
-  line-height: 3rem;
-  margin: 0rem 1rem;
-}
-header span:nth-child(2) {
-  width: 33%;
-  display: inline-block;
-  text-align: center;
-  line-height: 3rem;
-  font-size: 1.5rem;
-}
 header img {
-  border-radius: 5px;
-  display: inline;
-  height: 2rem;
-  float: right;
-  margin-right: 1rem;
-  margin-top: 0.5rem;
+  display: block;
+  margin: 0.5rem auto;
+  height: 3rem;
 }

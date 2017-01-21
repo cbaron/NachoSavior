@@ -5,7 +5,7 @@ const prefix = p.isSecure
     : `http://${process.env.DOMAIN}:${process.env.PORT}`
       
 const title = p.item.title ? p.item.title : 'Tiny Handed'
-const image = prefix + (p.item.image ? p.item.image : '/static/img/trump.jpg')
+const image = prefix + (p.item.image ? p.item.image : '/static/img/logo.png')
 
 const js = p.isDev
     ? `<script src="${prefix}/static/js/vendor.js.gz"></script><script src="${prefix}/static/js/debug.js.gz"></script>`

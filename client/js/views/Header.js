@@ -1,7 +1,7 @@
 module.exports = Object.assign( {}, require('./__proto__'), {
 
     events: {
-        logo: 'click'
+        //logo: 'click'
     },
 
     onUser() {
