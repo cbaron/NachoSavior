@@ -6,6 +6,8 @@ module.exports = Object.assign( { }, require('./lib/MyObject'), {
 
     Fs: require('fs'),
 
+    Jimp: require('jimp'),
+
     Jws: require('jws'),
 
     Mongo: require('./dal/Mongo'),
@@ -65,20 +67,38 @@ module.exports = Object.assign( { }, require('./lib/MyObject'), {
         } )
     },
 
+    requestToFile( request, path ) {
+        new Promise( ( resolve, reject ) => {
+            const fileStream = this.Fs.createWriteStream( `${path}`, { defaultEncoding: 'binary' } )
+
+            request.on( 'error', reject )
+            request.on( 'end', () => resolve() )
+            request.pipe( fileStream )
+        } )
+    },
+
     handleFileUpload(path) {
         this.request.setEncoding('binary')
+        const relativePath = `/static/img/i/${path || this.Uuid.v4()}`,
+              fullPath = `${__dirname}${relativePath}`
 
         return this.Validate.GET(this)
-        .then( () => 
+        .then( () => this.requestToFile( this.request, fullPath ) )
+        .then( () => Jimp.read( fullPath ).then( img => {
+
             new Promise( ( resolve, reject ) => {
-                const relativePath = `/static/img/i/${path || this.Uuid.v4()}`,
-                      fileStream = this.Fs.createWriteStream( `${__dirname}${relativePath}`, { defaultEncoding: 'binary' } )
+                const fileStream = this.Fs.createWriteStream( `${fullPath}`, { defaultEncoding: 'binary' } )
 
                 this.request.on( 'error', reject )
-                this.request.on( 'end', () => resolve( this.respond( { body: { path: `${relativePath}` } } ) ) )
+                this.request.on( 'end', () => resolve() )
                 this.request.pipe( fileStream )
-            } )
+            } ),
+
+
+
+
         )
+this.respond( { body: { path: `${relativePath}` } } ) ) )
     },
 
     handleMe() {

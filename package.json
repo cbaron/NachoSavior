@@ -6,6 +6,7 @@
   "dependencies": {
     "bcrypt": "^0.8.7",
     "email": "^0.2.6",
+    "jimp": "^0.2.27",
     "jws": "3.1.4",
     "livereload": "git://github.com/cbaron/node-livereload.git#master",
     "moment": "^2.12.0",

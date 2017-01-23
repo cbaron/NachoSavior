@@ -1,5 +1,7 @@
 module.exports = Object.assign( {}, require('./__proto__'), {
 
+    Toast: require('./Toast'),
+
     events: {
         cancel: 'click',
         submit: 'click'
@@ -111,6 +113,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
             } )
         )
         .then( response => this.hide().then( () => this.emit( 'added', response ) ) )
+        .catch( e => { this.Error(e); this.Toast( 'Fail' ) } )
     },
 
     requestEdit() {
@@ -121,5 +124,6 @@ module.exports = Object.assign( {}, require('./__proto__'), {
             : Promise.resolve() )
         .then( () => this.Xhr( { method: 'PATCH', resource: `comic/${this.model.data._id}`, data: JSON.stringify( data ) } ) )
         .then( response => this.hide().then( () => this.emit( 'edited', response ) ) )
+        .catch( e => { this.Error(e); this.Toast( 'Fail' ) } )
     }
 } )

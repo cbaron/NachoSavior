@@ -7,6 +7,7 @@ module.exports={
 	Header: require('./views/templates/Header'),
 	Home: require('./views/templates/Home'),
 	Login: require('./views/templates/Login'),
+	Toast: require('./views/templates/Toast'),
 	User: require('./views/templates/User'),
 	UserManage: require('./views/templates/UserManage'),
 	UserResources: require('./views/templates/UserResources')

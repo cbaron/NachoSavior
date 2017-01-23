@@ -196,6 +196,16 @@
 .Login .button-row button {
   cursor: pointer;
 }
+.Toast {
+  background-color: #ffc0cb;
+  border: 1px solid #f00;
+  border-radius: 5px;
+  bottom: 1%;
+  color: #f00;
+  padding: 1rem;
+  position: absolute;
+  right: 1%;
+}
 .UserManage {
   margin-left: 12%;
   width: 75%;
