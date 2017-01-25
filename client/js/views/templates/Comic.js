@@ -17,7 +17,7 @@ return `<div>
     <div class="clearfix">
         <div class="date">${(require('moment'))(p.created).format('MM-DD-YYYY')}</div>
     </div>
-    <img data-js="image" src="${p.image ? p.image : ''}"/>
+    <img class="image" data-js="image" src="${p.image ? p.image : ''}"/>
     ${p.opts.readOnly
         ? `<div class="clearfix">
              <div class="share">

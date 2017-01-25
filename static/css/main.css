@@ -74,6 +74,9 @@
   margin: 0rem auto 1rem auto;
   width: 100%;
 }
+.Comic .image {
+  cursor: pointer;
+}
 .Comic .share {
   float: left;
   height: 2rem;
@@ -468,6 +471,7 @@ header {
 }
 header img {
   display: block;
+  cursor: pointer;
   margin: 0.5rem auto;
   height: 3rem;
 }
