@@ -14,7 +14,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
 
     getLink() {
         const prefix = encodeURIComponent(`http://${window.location.hostname}${window.location.port}`)
-        return `${prefix}/${this.model.data.name || this.model.data._id}`
+        return `${prefix}/${this.model.data.name || 'comic/' + this.model.data._id}`
     },
 
     getComic() {
