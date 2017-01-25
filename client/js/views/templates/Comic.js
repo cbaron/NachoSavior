@@ -1,7 +1,6 @@
 module.exports = p => {
 return `<div>
     <div class="header" data-js="header">
-        <div class="title" data-js="title" >${p.title || ''}</div>
         <div class="pre-context" data-js="preContext" >${p.preContext || ''}</div>
         <div><img data-js="context" class="context" src="${p.context || ''}"/></div>
         <div class="post-context" data-js="postContext" >${p.postContext || ''}</div>

@@ -152,10 +152,10 @@
 .ComicResources .Comic .confirm {
   height: 2rem;
 }
-.ComicResources .Comic button:nth-child(5) {
+.ComicResources .Comic button:nth-child(4) {
   right: 1rem;
 }
-.ComicResources .Comic button:nth-child(6) {
+.ComicResources .Comic button:nth-child(5) {
   right: 4rem;
 }
 .Home {

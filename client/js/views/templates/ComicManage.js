@@ -2,8 +2,8 @@ module.exports = p =>
 `<div>
     <div data-js="header"></div>
     <div class="form-group">
-       <label class="form-label">title</label>
-       <input data-js="title" type="text"></input>
+       <label class="form-label">name ( used in url )</label>
+       <input data-js="name" type="text"></input>
     </div>
     <div class="form-group">
        <label class="form-label">pre context</label>

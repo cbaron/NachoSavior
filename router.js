@@ -1,5 +1,5 @@
 const RestHandler = {
-    condition( request, path ) { return /application\/json/.test( request.headers.accept ) && ( this.Mongo.collections[ path[0] ] || this.customRoutes.includes(path[0]) ) },
+    condition( request, path ) { return /application\/json/.test( request.headers.accept ) },
     method: 'rest'
 }
 
@@ -89,9 +89,12 @@ module.exports = Object.create( Object.assign( {}, require('./lib/MyObject'), {
     html( request, response, path ) {
         return ( /comic/i.test( path[0] ) && path[1]
             ? this.Mongo.getDb( db => db.collection('comic').findOne( { _id: this.Mongo.ObjectId( path[1] ) } ) )
-            : Promise.resolve( { } )
+            : ( path[0] && ( !/^(comic|admin)$/i.test(path[0]) ) )
+                ? this.Mongo.getDb( db => db.collection('comic').findOne( { name: path[0] } ) )
+                : Promise.resolve( { } )
         )
         .then( item => {
+            if( ! item ) { item = { } }
             response.writeHead( 200, { 'Content-Type': 'text/html' } )
             response.end( require('./templates/page')( {
                 item,

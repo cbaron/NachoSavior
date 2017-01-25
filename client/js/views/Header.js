@@ -1,7 +1,7 @@
 module.exports = Object.assign( {}, require('./__proto__'), {
 
     events: {
-        //logo: 'click'
+        logo: 'click'
     },
 
     onUser() {
@@ -9,7 +9,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     },
 
     onLogoClick() {
-        this.signout()
+        this.emit( 'navigate', '/' )
     },
 
     requiresLogin: false,

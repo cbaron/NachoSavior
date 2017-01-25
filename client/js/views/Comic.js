@@ -8,12 +8,13 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         facebook: 'click',
         google: 'click',
         //store: 'click',
-        title: 'click',
+        image: 'click',
         twitter: 'click'
     },
 
     getLink() {
-        return `${encodeURIComponent(window.location.origin)}/comic/${this.model.data._id}`
+        const prefix = encodeURIComponent(`http://${window.location.hostname}${window.location.port}`)
+        return `${prefix}/${this.model.data.name || this.model.data._id}`
     },
 
     getComic() {
@@ -62,9 +63,9 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     
     onGoogleClick() { window.open( `https://plus.google.com/share?url=${this.getLink()}`) },
     
-    onTitleClick() { this.emit( 'navigate', `/comic/${this.model.data._id}` ) },
+    onImageClick() { this.emit( 'navigate', ( this.model.data.name ) ? `/${this.model.data.name}` : `/comic/${this.model.data._id}` ) },
 
-    onTwitterClick() { window.open( `https://www.twitter.com/share?url=${this.getLink()}&via=tinyhanded&text=${encodeURIComponent(this.model.data.title)}` ) },
+    onTwitterClick() { window.open( `https://www.twitter.com/share?url=${this.getLink()}&via=tinyhanded&text=Unpresidented` ) },
 
     postRender() {
         if( this.model && this.model.data._id ) {
@@ -72,9 +73,8 @@ module.exports = Object.assign( {}, require('./__proto__'), {
             return this
         }
 
-        if( this.path.length !== 2 ) { this.emit( 'navigate', '' ); return this }
-
-        this.model = Object.create( this.Model, { resource: { value: `comic/${this.path[1]}`, writable: true } } )
+        const resource = this.path.length === 1 ? this.path[0] : `comic/${this.path[ 1 ] }`
+        this.model = Object.create( this.Model, { resource: { value: resource, writable: true } } )
         this.model.get()
         .then( this.update.bind(this) )
         .catch( this.Error )
@@ -83,8 +83,9 @@ module.exports = Object.assign( {}, require('./__proto__'), {
     },
 
     update(comic) {
+        if( comic === null ) return this.emit( 'navigate', '/' )
+
         this.model.data = comic
-        this.els.title.textContent = comic.title
         this.els.preContext.textContent = comic.preContext
         this.els.postContext.textContent = comic.postContext
         this.els.image.src = `${comic.image}?${new Date().getTime()}`

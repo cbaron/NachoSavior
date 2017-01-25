@@ -27,13 +27,13 @@ module.exports = Object.assign( {}, require('./__proto__'), {
         this.els.header.textContent = `${this.capitalizeFirstLetter( this.type )} Comic`
 
         if( Object.keys( this.model.data ).length ) {
-            this.els.title.value = this.model.data.title || ''
+            this.els.name.value = this.model.data.name || ''
             this.els.preview.src = this.model.data.image
             this.els.contextPreview.src = this.model.data.context
             this.els.preContext.value = this.model.data.preContext
             this.els.postContext.value = this.model.data.postContext
         } else {
-            this.els.title.value = ''
+            this.els.name.value = ''
             this.els.preview.src = ''
             this.els.preContext.value = ''
             this.els.postContext.value = ''
@@ -103,7 +103,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
                 method: 'POST',
                 resource: 'comic',
                 data: JSON.stringify( {
-                    title: this.els.title.value,
+                    name: this.els.name.value,
                     image: comicResponse.path,
                     preContext: this.els.preContext.value,
                     context: contextResponse ? contextResponse.path : undefined,
@@ -113,17 +113,17 @@ module.exports = Object.assign( {}, require('./__proto__'), {
             } )
         )
         .then( response => this.hide().then( () => this.emit( 'added', response ) ) )
-        .catch( e => { this.Error(e); this.Toast( 'Fail' ) } )
+        .catch( e => { this.Error(e); } )
     },
 
     requestEdit() {
-        let data = { title: this.els.title.value }
+        let data = { name: this.els.name.value }
         
         return ( ( this.binaryFile )
             ? this.Xhr( { method: 'PATCH', resource: `file/${this.model.data.image.split('/')[4]}`, data: this.binaryFile, headers: { contentType: 'application/octet-stream' } } )
             : Promise.resolve() )
         .then( () => this.Xhr( { method: 'PATCH', resource: `comic/${this.model.data._id}`, data: JSON.stringify( data ) } ) )
         .then( response => this.hide().then( () => this.emit( 'edited', response ) ) )
-        .catch( e => { this.Error(e); this.Toast( 'Fail' ) } )
+        .catch( e => { this.Error(e); } )
     }
 } )

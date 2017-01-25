@@ -40,8 +40,16 @@ module.exports = Object.create( {
     },
 
     handler( path ) {
-        const name = path[0] ? path[0].charAt(0).toUpperCase() + path[0].slice(1) : '',
-              view = this.Views[name] ? path[0] : 'home';
+        const isComic = Boolean( path[0] && path.length === 1 && (!/^(admin|comic)$/i.test( path[0] )))
+        const name = isComic
+            ? 'Comic'
+            : path[0]
+                ? path[0].charAt(0).toUpperCase() + path[0].slice(1)
+                : '';
+        
+        let view = this.Views[name] ? path[0] : 'home';
+        
+        if( isComic ) { view = 'comic'; }
 
         ( ( view === this.currentView )
             ? Promise.resolve()

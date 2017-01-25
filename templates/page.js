@@ -1,11 +1,14 @@
 module.exports = p => {
 
+const sharePrefix = `http://${process.env.DOMAIN}:${process.env.PORT}`
+
 const prefix = p.isSecure
     ? `https://${process.env.DOMAIN}:${process.env.SECURE_PORT}`
-    : `http://${process.env.DOMAIN}:${process.env.PORT}`
-      
+    : `${sharePrefix}`
+
 const title = p.item.title ? p.item.title : 'Tiny Handed'
-const image = prefix + (p.item.image ? p.item.image : '/static/img/logo-share.png')
+const relativeImagePath = p.item.image ? p.item.image + '-og.png' : '/static/img/logo-share.png'
+const image = `${sharePrefix}${relativeImagePath}`
 
 const js = p.isDev
     ? `<script src="${prefix}/static/js/vendor.js.gz"></script><script src="${prefix}/static/js/debug.js.gz"></script>`
@@ -19,16 +22,16 @@ return `<!DOCTYPE html>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <meta property="og:url" content="${prefix}${p.request.url}" />
+        <meta property="og:url" content="${sharePrefix}${p.request.url}" />
         <meta property="og:title" content="${ title }" />
-        <meta property="og:description" content="Unpresidented idiot." />
+        <meta property="og:description" content="Unpresidented." />
         <meta property="og:image" content="${image}" />
         <meta property="og:type" content="article" />
 
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:site" content="@tinyhanded">
         <meta name="twitter:title" content="${ title }">
-        <meta name="twitter:description" content="Unpresidented Idiot.">
+        <meta name="twitter:description" content="Unpresidented.">
         <meta name="twitter:creator" content="@tinyhanded">
         <meta name="twitter:image" content="${image}">
 

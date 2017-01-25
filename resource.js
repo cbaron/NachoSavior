@@ -68,11 +68,12 @@ module.exports = Object.assign( { }, require('./lib/MyObject'), {
     },
 
     requestToFile( request, path ) {
-        new Promise( ( resolve, reject ) => {
+        return new Promise( ( resolve, reject ) => {
             const fileStream = this.Fs.createWriteStream( `${path}`, { defaultEncoding: 'binary' } )
 
+            fileStream.on( 'finish', () => resolve() )
             request.on( 'error', reject )
-            request.on( 'end', () => resolve() )
+            //request.on( 'end', () => resolve() )
             request.pipe( fileStream )
         } )
     },
@@ -84,21 +85,11 @@ module.exports = Object.assign( { }, require('./lib/MyObject'), {
 
         return this.Validate.GET(this)
         .then( () => this.requestToFile( this.request, fullPath ) )
-        .then( () => Jimp.read( fullPath ).then( img => {
-
-            new Promise( ( resolve, reject ) => {
-                const fileStream = this.Fs.createWriteStream( `${fullPath}`, { defaultEncoding: 'binary' } )
-
-                this.request.on( 'error', reject )
-                this.request.on( 'end', () => resolve() )
-                this.request.pipe( fileStream )
-            } ),
-
-
-
-
-        )
-this.respond( { body: { path: `${relativePath}` } } ) ) )
+        .then( () => this.Jimp.read( fullPath ).then( img => {
+            img.contain( img.bitmap.width, img.bitmap.width / 1.91 )
+            return this.P( img.write, [ `${__dirname}${relativePath}-og.png` ], img )
+        } ) )
+        .then( () => this.respond( { body: { path: `${relativePath}` } } ) )
     },
 
     handleMe() {
@@ -122,8 +113,14 @@ this.respond( { body: { path: `${relativePath}` } } ) ) )
         .then( () => this.respond( { body: { } } ) )
     },
 
+    handleComicName( name ) {
+        return this.Mongo.getDb( db => db.collection('comic').findOne( { name } ) )
+            .then( item => Promise.resolve( this.respond( { body: item } ) ) )
+    },
+
     GET() {
         if( this.path[0] === "me" ) return this.handleMe()
+        if( ! /^(comic|user)$/.test(this.path[0]) ) return this.handleComicName( this.path[0] )
         this.body = [ ];
         ( ( this.path.length === 2 )
             ? this.Mongo.getDb( db => db.collection(this.path[0]).findOne( { _id: this.Mongo.ObjectId( this.path[1] ) } ) )
