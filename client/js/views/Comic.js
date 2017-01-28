@@ -23,7 +23,7 @@ module.exports = Object.assign( {}, require('./__proto__'), {
 
     navigate( path ) {
         this.path = path
-        this.model.resource = `comic/${this.path[1]}`
+        this.model.resource = this.path.length === 1 ? this.path[0] : `comic/${this.path[ 1 ] }`
 
         this.model.get()
         .then( comic => {
